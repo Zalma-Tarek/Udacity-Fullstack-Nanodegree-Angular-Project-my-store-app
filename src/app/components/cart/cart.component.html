@@ -1,0 +1,68 @@
+<div *ngIf="cartProducts.length > 0" class="cart-container">
+<div class="cart-panel">
+<div *ngFor="let item of cartProducts" class="cart-item">
+<img [src]="item.url" alt="{{item.name}}">
+<div class="cart-item-details">
+<h3>{{item.name}}</h3>
+<p>{{item.price | currency}}</p>
+<div class="cart-item">
+  <label for="quantity"></label>
+<input class="number-input" type="number" [value]="item.quantity"
+(ngModelChange)="updateQty(item, $any($event.target).value)" min="1"/>
+</div>
+<button (click)="removeProduct(item)" class="btn btn-danger">Remove</button>
+</div>
+</div>
+<div>
+<h3>Total: {{ totalPrice() | currency }}</h3>
+</div>
+</div>
+<div class="cart-panel">
+<form #f="ngForm" (ngSubmit)="checkout(f)" class="cart-item-details">
+<div class="form-margin cart-item-details">
+<label>Full Name</label>
+<input #userName="ngModel" placeholder="(minimum 3 characters)" type="text" [(ngModel)]="name" name="name" required
+minlength="3" />
+<div class="alert alert-warning" *ngIf="userName.invalid && userName.dirty">
+  <div *ngIf="userName?.errors?.['required']">
+    Please provide your name.
+  </div>
+  <div *ngIf="userName?.errors?.['minlength']">
+    Your name must contain at least 3 characters.
+  </div>
+</div>
+</div>
+<div class="form-margin cart-item-details">
+<label>Address</label>
+<input #userAdd="ngModel" placeholder="(minimum 6 characters)" type="text" [(ngModel)]="address" name="address" required
+minlength="6" />
+<div class="alert alert-warning" *ngIf="userAdd.invalid && userAdd.dirty">
+  <div *ngIf="userAdd?.errors?.['required']">
+    Please provide your address.
+  </div>
+  <div *ngIf="userAdd?.errors?.['minlength']">
+    Your address must contain at least 3 characters.
+  </div>
+</div>
+</div>
+<div class="form-margin cart-item-details">
+<label>Credit Card Number</label>
+<input #userCredit="ngModel" placeholder="(minimum 16 characters)" type="number" [(ngModel)]="card" name="card" required
+minlength="16" maxlength="16"/>
+<div class="alert alert-warning" *ngIf="userCredit.invalid && userCredit.dirty">
+  <div *ngIf="userCredit?.errors?.['required']">
+    Please provide your credit card number.
+  </div>
+  <div *ngIf="userCredit?.errors?.['minlength']">
+    Your credit card number must contain 16 numbers.
+  </div>
+</div>
+</div>
+<small class="form-margin cart-item-details">We'll never share ypur payment details with anyone else.</small>
+<button [disabled]="f.invalid" type="submit" class="btn btn-primary form-margin cart-item-details">Submit</button>
+</form>
+</div>
+</div>
+<div *ngIf="cartProducts.length === 0" class="empty-cart-message">
+<h1>Your cart is empty</h1>
+</div>

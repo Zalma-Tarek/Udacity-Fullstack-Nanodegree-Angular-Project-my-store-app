@@ -1,0 +1,12 @@
+<div class="product-container">
+  <div (click)="viewDetails()" class="product-image">
+<img [src]="product.url" alt="{{product.name}}" />
+</div>
+
+<h3>{{ product.name }}</h3>
+<p>{{ product.price | currency }}</p>
+
+<input class="select-input" type="number" [(ngModel)]="product.quantity" min="0" />
+<button (click)="addToCart(product, product.quantity)">Add to cart</button>
+
+</div>
