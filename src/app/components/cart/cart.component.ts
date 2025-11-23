@@ -32,6 +32,7 @@ export class CartComponent implements OnInit {
   removeProduct(product: ProductModel): void{
     this._productService.removeProductFromCart(product);
     this.cartProducts = this._productService.getCartProducts();
+    window.alert("Product "+product.name+" is removed");
   }
 
   checkout(f: NgForm) {

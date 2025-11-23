@@ -7,7 +7,7 @@
 <p>{{product.price | currency}}</p>
 <p>{{product.description}}</p>
 <div>
-<input class="select-input" type="number" [(ngModel)]="product.quantity" min="0" />
+<input class="select-input" type="number" [(ngModel)]="product.quantity" min="1" />
 <button (click)="addToCart()">Add to cart</button>
 </div>
 <a class="back-link" routerLink="/">Back To Product List</a>

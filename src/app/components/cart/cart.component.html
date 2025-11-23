@@ -8,7 +8,7 @@
 <div class="cart-item">
   <label for="quantity"></label>
 <input class="number-input" type="number" [value]="item.quantity"
-(ngModelChange)="updateQty(item, $any($event.target).value)" min="1"/>
+(change)="updateQty(item, $any($event.target).value)" min="1"/>
 </div>
 <button (click)="removeProduct(item)" class="btn btn-danger">Remove</button>
 </div>

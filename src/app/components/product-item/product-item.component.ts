@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ProductModel } from '../../models/Product';
 import { Router } from '@angular/router';
 import { ProductService } from '../../services/product.service';
@@ -11,6 +11,7 @@ import { ProductService } from '../../services/product.service';
 })
 export class ProductItemComponent implements OnInit {
   @Input() product!: ProductModel;
+  @Output() addToCartClicked = new EventEmitter<ProductModel>();
 
   constructor(private _router: Router, private _productService: ProductService) { }
 
@@ -19,14 +20,8 @@ export class ProductItemComponent implements OnInit {
 
   viewDetails() { this._router.navigate(['/product', this.product.id]); }
 
-  addToCart(product: ProductModel, quantity: number){
-    if(product.quantity > 0){
-      this._productService.addProductToCart(product, quantity);
-      window.alert("Added To Cart");
-    }
-    else{
-      window.alert("Please Choose Proper Quantity");
-    }
+  addToCart(product: ProductModel){
+      this.addToCartClicked.emit(product);
   }
 
   
